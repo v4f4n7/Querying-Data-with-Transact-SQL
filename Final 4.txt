@@ -14,7 +14,11 @@ on o.orderid = od.orderid
 group by rollup(Country)
 
 4.
-
+SELECT Country, ContactTitle, Count(ContactTitle) AS Count, 
+Legend = (CASE WHEN GROUPING_ID(ContactTitle) = 0 THEN '' WHEN GROUPING_ID(ContactTitle) = 1 THEN 
+'Subtotal for ' + Country END)
+FROM Customers
+GROUP BY ROLLUP (Country, ContactTitle)
 
 5.
 SELECT 'Average Unit Price' as 'Per Category',
